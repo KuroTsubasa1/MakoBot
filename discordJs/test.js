@@ -22,7 +22,6 @@ client.on('ready', () => {
 client.on('message', message => {
 
     function slots() {
-
     sendSlotResults(slotsLogic(genSlotsNumbers(), 1));
   }
 // Handles the display of the slots results
@@ -92,7 +91,7 @@ return slotRows2;
       }
 
       coins = coins * mltipler;
-      return [coins, mltipler, slotRows]
+      return {coins, mltipler, slotRows}
     }
 
     function getRandomInt(min, max) {
