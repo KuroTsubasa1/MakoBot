@@ -26,8 +26,9 @@ client.on('message', message => {
   }
 // Handles the display of the slots results
   function sendSlotResults(all){
+        var cpAll = all;
         message.channel.send("   S   L   O   T   S   ");
-        all.slotRows =  changeNrToEmo(all.slotRows);
+        all.slotRows =  changeNrToEmo(cpAll.slotRows);
         message.channel.send(all.slotRows[0] + " " + all.slotRows[1] + " " + all.slotRows[2] + "\n" + all.slotRows[3] + " " + all.slotRows[4] + " " + all.slotRows[5] + "\n" + all.slotRows[6] + " " + all.slotRows[7] + " " + all.slotRows[8]);
         message.channel.send("You Won " + all.coins + "!\nYour coin multiplicator is " + all.mltipler);
   }
