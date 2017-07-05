@@ -46,10 +46,30 @@ client.on('message', message => {
         i++;
       }
       message.channel.send("   S   L   O   T   S   ");
+      changeNrToEmo(slotRows);
       message.channel.send(slotRows[0] + " " + slotRows[1] + " " + slotRows[2] + "\n" + slotRows[3] + " " + slotRows[4] + " " + slotRows[5] + "\n" + slotRows[6] + " " + slotRows[7] + " " + slotRows[8]);
       return slotRows;
     }
 
+function changeNrToEmo(slotRows){
+for (i = 0; i < slotRows.length ;){
+if (slotRows[i] == 1){
+slotRows[i] = ":saxophone:";
+}else if (slotRows[i] == 2) {
+  slotRows[i] = ":video_game:";
+}else if (slotRows[i] == 3) {
+  slotRows[i] = ":guitar:";
+}else if (slotRows[i] == 4) {
+  slotRows[i] = ":drum:";
+}else if (slotRows[i] == 5) {
+  slotRows[i] = ":microphone:";
+}else if (slotRows[i] == 6) {
+  slotRows[i] = ":rosette:";
+}
+i++;
+}
+return slotRows;
+}
     function slotsLogic(slotRows,coins) {
       var mltipler = 0;
       if (slotRows[3] == 1 && slotRows[4] == 1 && slotRows[5] == 1) {
@@ -102,9 +122,10 @@ client.on('message', message => {
 
    if (message.content === 'id') {
     // Send to the same channel
-    message.channel.send(client.user.id);
+    message.channel.send(message.author.id);
   }
 });
+
 
 // Log our bot in
 client.login(token);
