@@ -11,6 +11,7 @@ const client = new Discord.Client();
 // The token of your bot - https://discordapp.com/developers/applications/me
 const token = 'MzMxNzE3MTI1ODMwMDgyNTYw.DDznVA.CwWs-HqWVwuez-FeReIY9Y8aMYQ';
 
+//require('battlesim.js');
 // The ready event is vital, it means that your bot will only start reacting to information
 // from Discord _after_ ready is emitted
 client.on('ready', () => {
@@ -22,7 +23,14 @@ client.on('message', message => {
 
     function slots() {
 
-    slotsLogic(genSlotsNumbers(), 1);
+    sendSlotResults(slotsLogic(genSlotsNumbers(), 1));
+  }
+// Handles the display of the slots results
+  function sendSlotResults(all){
+        message.channel.send("   S   L   O   T   S   ");
+        all.slotRows =  changeNrToEmo(all.slotRows);
+        message.channel.send(all.slotRows[0] + " " + all.slotRows[1] + " " + all.slotRows[2] + "\n" + all.slotRows[3] + " " + all.slotRows[4] + " " + all.slotRows[5] + "\n" + all.slotRows[6] + " " + all.slotRows[7] + " " + all.slotRows[8]);
+        message.channel.send("You Won " + all.coins + "!\nYour coin multiplicator is " + all.mltipler);
   }
 
     function genSlotsNumbers() {
@@ -45,30 +53,27 @@ client.on('message', message => {
 
         i++;
       }
-      message.channel.send("   S   L   O   T   S   ");
-      changeNrToEmo(slotRows);
-      message.channel.send(slotRows[0] + " " + slotRows[1] + " " + slotRows[2] + "\n" + slotRows[3] + " " + slotRows[4] + " " + slotRows[5] + "\n" + slotRows[6] + " " + slotRows[7] + " " + slotRows[8]);
       return slotRows;
     }
 
-function changeNrToEmo(slotRows){
-for (i = 0; i < slotRows.length ;){
-if (slotRows[i] == 1){
-slotRows[i] = ":saxophone:";
-}else if (slotRows[i] == 2) {
-  slotRows[i] = ":video_game:";
-}else if (slotRows[i] == 3) {
-  slotRows[i] = ":guitar:";
-}else if (slotRows[i] == 4) {
-  slotRows[i] = ":drum:";
-}else if (slotRows[i] == 5) {
-  slotRows[i] = ":microphone:";
-}else if (slotRows[i] == 6) {
-  slotRows[i] = ":rosette:";
+function changeNrToEmo(slotRows2){
+for (i = 0; i < slotRows2.length ;){
+if (slotRows2[i] == 1){
+slotRows2[i] = ":saxophone:";
+}else if (slotRows2[i] == 2) {
+  slotRows2[i] = ":ok_hand:";
+}else if (slotRows2[i] == 3) {
+  slotRows2[i] = ":guitar:";
+}else if (slotRows2[i] == 4) {
+  slotRows2[i] = ":drum:";
+}else if (slotRows2[i] == 5) {
+  slotRows2[i] = ":microphone:";
+}else if (slotRows2[i] == 6) {
+  slotRows2[i] = ":rosette:";
 }
 i++;
 }
-return slotRows;
+return slotRows2;
 }
     function slotsLogic(slotRows,coins) {
       var mltipler = 0;
@@ -87,8 +92,7 @@ return slotRows;
       }
 
       coins = coins * mltipler;
-      message.channel.send("You Won " + coins + "!\nYour coin multiplicator is " + mltipler)
-      return coins
+      return [coins, mltipler, slotRows]
     }
 
     function getRandomInt(min, max) {
