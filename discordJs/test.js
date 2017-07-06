@@ -5,7 +5,7 @@
 // Import the discord.js module
 const Discord = require('discord.js');
 
-const execSync = require('child_process').execFile;
+const execFile = require('child_process').execFile;
 
 // Create an instance of a Discord client
 const client = new Discord.Client();
