@@ -138,7 +138,7 @@ return slotRows2;
 
   if (message.content === 'patch') {
    // Send to the same channel
-   execSync("./syncGitRepo.sh");
+   execSync("syncMako");
    message.channel.send("patched git");
    message.channel.send("restart now");
  }
