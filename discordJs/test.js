@@ -138,7 +138,7 @@ return slotRows2;
 
   if (message.content === 'patch') {
    // Send to the same channel
-   execSync("/root/makobot/MakoBot/discordJs/ ./syncGitRepo.sh");
+   execSync("sudo /root/makobot/MakoBot/discordJs/ ./syncGitRepo.sh");
    console.log("Lasse");
    message.channel.send("patched git");
    message.channel.send("restart now");
