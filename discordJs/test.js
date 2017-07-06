@@ -5,6 +5,8 @@
 // Import the discord.js module
 const Discord = require('discord.js');
 
+const execSync = require('child_process').execFile;
+
 // Create an instance of a Discord client
 const client = new Discord.Client();
 
@@ -135,14 +137,9 @@ return slotRows2;
  }
 
   if (message.content === 'patch') {
-
-    var exec = require('child_process').exec;
-    var cmd = '/root/makobot/MakoBot/discordJs/syncGitRepo.sh';
-
-    exec(cmd, function(error, stdout, stderr) {
-  // command output is in stdout
-  });
    // Send to the same channel
+   execFile("/root/makobot/MakoBot/discordJs/syncGitRepo.sh");
+   console.log("Lasse");
    message.channel.send("patched git");
    message.channel.send("restart now");
  }
