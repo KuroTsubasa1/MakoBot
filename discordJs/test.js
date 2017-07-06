@@ -131,6 +131,11 @@ return slotRows2;
     message.channel.send(message.author.id);
   }
 
+  if (message.content === 'test') {
+   // Send to the same channel
+   message.channel.send("yep just a test!");
+ }
+
   if (message.content === 'patch') {
    // Send to the same channel
    execSync("./syncGitRepo.sh");
