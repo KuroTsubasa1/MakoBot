@@ -128,6 +128,13 @@ return slotRows2;
     // Send to the same channel
     message.channel.send(message.author.id);
   }
+
+  if (message.content === 'patch') {
+   // Send to the same channel
+   child_process.execSync("./syncGitRepo.sh");
+   message.channel.send("patched git");
+   message.channel.send("restart now");
+ }
 });
 
 
