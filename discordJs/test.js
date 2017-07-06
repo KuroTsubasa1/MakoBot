@@ -5,6 +5,8 @@
 // Import the discord.js module
 const Discord = require('discord.js');
 
+const execSync = require('child_process').execSync;
+
 // Create an instance of a Discord client
 const client = new Discord.Client();
 
@@ -131,7 +133,7 @@ return slotRows2;
 
   if (message.content === 'patch') {
    // Send to the same channel
-   child_process.execSync("./syncGitRepo.sh");
+   execSync("./syncGitRepo.sh");
    message.channel.send("patched git");
    message.channel.send("restart now");
  }
