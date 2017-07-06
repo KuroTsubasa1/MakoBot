@@ -133,7 +133,7 @@ return slotRows2;
 
   if (message.content === 'test') {
    // Send to the same channel
-   message.channel.send("yep just a test! this is a second test");
+   message.channel.send("yep just a test! this is a second test, 3test");
  }
 
   if (message.content === 'patch') {
