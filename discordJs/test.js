@@ -24,8 +24,8 @@ client.on('ready', () => {
 client.on('message', message => {
 
     function slots() {
-    sendSlotResults(slotsLogic(genSlotsNumbers(), 1));
-  }
+      sendSlotResults(slotsLogic(genSlotsNumbers(), 1));
+      }
 // Handles the display of the slots results
   function sendSlotResults(all){
         var cpAll = all;
@@ -135,16 +135,34 @@ return slotRows2;
 
     function wage() {
 
-      message.channel.send("DEBUG writing file to disk");
       var fs = require('fs');
-      fs.writeFile("/tmp/"+ client.user.id +".json", "Hey there!", function(err) {
-        if (err) {
-          return console.log(err);
-        }
 
-        message.channel.send("The file (" + client.user.id +".json"+ ") was saved!");
-        console.log("The file was saved!");
-      });
+      // setting up path
+      var path =  '/tmp/' + message.author.id + ".json";
+
+      // checks if path / file already exiest
+      if (fs.existsSync(path)) {
+
+          message.channel.send("loading file");
+          // read file as plain text
+          var readFile = fs.readFileSync(path);
+          // creates js object from plain text
+          var obj = JSON.parse(readFile);
+
+          message.channel.send("You have " + obj.coins + " coins in your account.");
+          message.channel.send("The file (" + message.author.id +".json"+ ") was saved!");
+
+      }else {
+        // writes object to plain text file
+        fs.writeFile(path, '{"coins": "100"}', function(err) {
+          if (err) {
+            return console.log(err);
+          }
+          message.channel.send("The file (" + message.author.id +".json"+ ") was saved!");
+          message.channel.send("Mako created a bank account for you !");
+          message.channel.send("You recived 100 Coins !!!!");
+        });
+      }
     }
 
   // If the message is "slots"
