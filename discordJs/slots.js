@@ -1,0 +1,142 @@
+/*
+Here are all the functions necessary for the slots command
+*/
+const util = require('./util');
+
+module.exports = {
+
+  checkrequirements: function(chkobj) {
+    console.log('checkrequirements');
+    if (chkobj.coins >= 1) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+
+  genSlotsNumbers: function() {
+    console.log('genSlotsNumbers');
+    var slotRows = [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ];
+
+    for (i = 0; i < 9;) {
+      var numbers = [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        4,
+        4,
+        4,
+        4,
+        5,
+        5,
+        6
+      ];
+      var randNum = util.getRandomInt(1, numbers.length - 1);
+      if (i <= 3) {
+        slotRows[i] = numbers[randNum];
+      }
+
+      if (i <= 6 && i > 3) {
+        slotRows[i] = numbers[randNum];
+      }
+
+      if (i <= 9 && i > 6) {
+        slotRows[i] = numbers[randNum];
+      }
+      i++;
+    }
+    return slotRows;
+  },
+
+  changeNrToEmo: function(slotRows2) {
+    console.log('ChangeNrToEmo');
+    for (i = 0; i < slotRows2.length;) {
+      if (slotRows2[i] == 1) {
+        slotRows2[i] = ":saxophone:";
+      } else if (slotRows2[i] == 2) {
+        slotRows2[i] = ":ok_hand:";
+      } else if (slotRows2[i] == 3) {
+        slotRows2[i] = ":guitar:";
+      } else if (slotRows2[i] == 4) {
+        slotRows2[i] = ":drum:";
+      } else if (slotRows2[i] == 5) {
+        slotRows2[i] = ":microphone:";
+      } else if (slotRows2[i] == 6) {
+        slotRows2[i] = ":rosette:";
+      }
+      i++;
+    }
+    return slotRows2;
+  },
+
+  slotsLogic: function(slotRows, coins, content) {
+    console.log('slotsLogic');
+    var mltipler = 0;
+    if (content === 'slots') {
+      if (slotRows[3] == 1 && slotRows[4] == 1 && slotRows[5] == 1) {
+        mltipler = 2;
+      } else if (slotRows[3] == 2 && slotRows[4] == 2 && slotRows[5] == 2) {
+        mltipler = 4;
+      } else if (slotRows[3] == 3 && slotRows[4] == 3 && slotRows[5] == 3) {
+        mltipler = 8;
+      } else if (slotRows[3] == 4 && slotRows[4] == 4 && slotRows[5] == 4) {
+        mltipler = 16;
+      } else if (slotRows[3] == 5 && slotRows[4] == 5 && slotRows[5] == 5) {
+        mltipler = 32;
+      } else if (slotRows[3] == 6 && slotRows[4] == 6 && slotRows[5] == 6) {
+        mltipler = 64;
+      }
+    }
+
+    if (content === 'multislots') {
+
+      if (slotRows[0] == 1 && slotRows[1] == 1 && slotRows[2] == 1 || slotRows[3] == 1 && slotRows[4] == 1 && slotRows[5] == 1 || slotRows[6] == 1 && slotRows[7] == 1 && slotRows[8] == 1) {
+        mltipler = 1;
+      } else if (slotRows[0] == 2 && slotRows[1] == 2 && slotRows[2] == 2 || slotRows[3] == 2 && slotRows[4] == 2 && slotRows[5] == 2 || slotRows[6] == 2 && slotRows[7] == 2 && slotRows[8] == 2) {
+        mltipler = 2;
+      } else if (slotRows[0] == 3 && slotRows[1] == 3 && slotRows[2] == 3 || slotRows[3] == 3 && slotRows[4] == 3 && slotRows[5] == 3 || slotRows[6] == 3 && slotRows[7] == 3 && slotRows[8] == 3) {
+        mltipler = 4;
+      } else if (slotRows[0] == 4 && slotRows[1] == 4 && slotRows[2] == 4 || slotRows[3] == 4 && slotRows[4] == 4 && slotRows[5] == 4 || slotRows[6] == 4 && slotRows[7] == 4 && slotRows[8] == 4) {
+        mltipler = 8
+      } else if (slotRows[0] == 5 && slotRows[1] == 5 && slotRows[2] == 5 || slotRows[3] == 5 && slotRows[4] == 5 && slotRows[5] == 5 || slotRows[6] == 5 && slotRows[7] == 5 && slotRows[8] == 5) {
+        mltipler = 16;
+      } else if (slotRows[0] == 6 && slotRows[1] == 6 && slotRows[2] == 6 || slotRows[3] == 6 && slotRows[4] == 6 && slotRows[5] == 6 || slotRows[6] == 6 && slotRows[7] == 6 && slotRows[8] == 6) {
+        mltipler = 32;
+      }
+    }
+    coins = coins * mltipler;
+    return {coins, mltipler, slotRows};
+  }
+
+};
