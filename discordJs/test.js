@@ -5,38 +5,38 @@
 // Import the discord.js module
 const DISCORD = require("discord.js");
 
-const execFile = require("child_process").execFile;
-const fs = require('fs');
-const slts = require('./slots');
-// Create an instance of a Discord client
-const client = new DISCORD.Client();
+const EXECFILE = require("child_process").execFile;
+const FS = require('fs');
+const SLTS = require('./slots');
+// Create an instance of a Discord CLIENT
+const CLIENT = new DISCORD.Client();
 
-// The token of your bot - https://discordapp.com/developers/applications/me
-const token = 'MzMxNzE3MTI1ODMwMDgyNTYw.DDznVA.CwWs-HqWVwuez-FeReIY9Y8aMYQ';
+// The TOKEN of your bot - https://discordapp.com/developers/applications/me
+const TOKEN = 'MzMxNzE3MTI1ODMwMDgyNTYw.DDznVA.CwWs-HqWVwuez-FeReIY9Y8aMYQ';
 
 // The ready event is vital, it means that your bot will only start reacting to information
 // from Discord _after_ ready is emitted
-client.on('ready', () => {
+CLIENT.on('ready', () => {
   console.log('I am ready!');
 });
 
 // Create an event listener for messages
-client.on('message', message => {
+CLIENT.on('message', message => {
   function slots() {
 
     var path = '/tmp/' + message.author.id + '.json';
 
     // checks if path / file already exiest
-    if (fs.existsSync(path)) {
+    if (FS.existsSync(path)) {
 
       // read file as plain text
-      var readFile = fs.readFileSync(path);
+      var readFile = FS.readFileSync(path);
       // creates js object from plain text
       var obj = JSON.parse(readFile);
     } else {}
-      if (slts.checkrequirements(obj)) {
-        obj.coins = obj.coins + sendSlotResults(slts.slotsLogic(slts.genSlotsNumbers(), 1, obj, message.content.toLowerCase()));
-        fs.writeFile(path, JSON.stringify(obj), function(err) {
+      if (SLTS.checkrequirements(obj)) {
+        obj.coins = obj.coins + sendSlotResults(SLTS.slotsLogic(SLTS.genSlotsNumbers(), 1, obj, message.content.toLowerCase()));
+        FS.writeFile(path, JSON.stringify(obj), function(err) {
           if (err) {
             return console.log(err);
       }
@@ -47,7 +47,7 @@ client.on('message', message => {
   // Handles the display of the slots results
   function sendSlotResults(all) {
     message.channel.send('   S   L   O   T   S   ');
-    all.slotRows = slts.changeNrToEmo(all.slotRows);
+    all.slotRows = SLTS.changeNrToEmo(all.slotRows);
     message.channel.send(all.slotRows[0] + ' ' + all.slotRows[1] + ' ' + all.slotRows[2] + '\n' + all.slotRows[3] + ' ' +  all.slotRows[4] + ' ' + all.slotRows[5] + '\n' + all.slotRows[6] + ' ' + all.slotRows[7] + ' ' + all.slotRows[8]);
     message.channel.send("You Won " + all.coins + "!\nYour coin multiplicator is " + all.mltipler);
     return all.coins;
@@ -59,16 +59,16 @@ client.on('message', message => {
     var path = '/tmp/' + message.author.id + ".json";
 
     // checks if path / file already exist
-    if (fs.existsSync(path)) {
+    if (FS.existsSync(path)) {
 
       message.channel.send("loading file");
       // read file as plain text
-      var readFile = fs.readFileSync(path);
+      var readFile = FS.readFileSync(path);
       // creates js object from plain text
       var obj = JSON.parse(readFile);
       message.channel.send("You recived 100 Coins !!!!");
       obj.coins = obj.coins + 100;
-      fs.writeFile(path, JSON.stringify(obj), function(err) {
+      FS.writeFile(path, JSON.stringify(obj), function(err) {
         if (err) {
           return console.log(err);
         }
@@ -78,7 +78,7 @@ client.on('message', message => {
 
     } else {
       // writes object to plain text file
-      fs.writeFile(path, '{"coins":"100"}', function(err) {
+      FS.writeFile(path, '{"coins":"100"}', function(err) {
         if (err) {
           return console.log(err);
         }
@@ -118,10 +118,10 @@ client.on('message', message => {
 
   if (message.content === 'patch') {
     // Send to the same channel
-    execFile("/root/makobot/MakoBot/discordJs/syncGitRepo.sh");
+    EXECFILE("/root/makobot/MakoBot/discordJs/syncGitRepo.sh");
     message.channel.send("patched git");
     message.channel.send("restart now");
   };
 });
 // Log our bot in
-client.login(token);
+CLIENT.login(TOKEN);
