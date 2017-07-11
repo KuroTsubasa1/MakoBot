@@ -25,41 +25,41 @@ module.exports = {
       0,
       0
     ];
-
+    var numbers = [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      4,
+      4,
+      4,
+      4,
+      5,
+      5,
+      6
+    ];
     for (i = 0; i < 9;) {
-      var numbers = [
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        4,
-        4,
-        4,
-        4,
-        5,
-        5,
-        6
-      ];
+
       var randNum = UTIL.getRandomInt(1, numbers.length - 1);
       if (i <= 3) {
         slotRows[i] = numbers[randNum];
@@ -131,7 +131,9 @@ module.exports = {
         mltipler = 32;
       }
     }
-    coins = coins + coins * mltipler;
+    coins = coins * mltipler;
+    console.log('coins: ' + coins);
+    console.log('mltipler: ' + mltipler);
     return {
       coins,
       mltipler,

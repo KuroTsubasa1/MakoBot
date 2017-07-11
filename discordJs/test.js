@@ -35,7 +35,7 @@ CLIENT.on('message', message => {
       var obj = JSON.parse(readFile);
     } else {}
       if (SLTS.checkrequirements(obj)) {
-        obj.coins = obj.coins + sendSlotResults(SLTS.slotsLogic(SLTS.genSlotsNumbers(), 1, obj, message.content.toLowerCase()));
+        obj.coins = obj.coins + sendSlotResults(SLTS.slotsLogic(SLTS.genSlotsNumbers(),1, message.content.toLowerCase()));
         FS.writeFile(path, JSON.stringify(obj), function(err) {
           if (err) {
             return console.log(err);

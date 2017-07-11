@@ -3,7 +3,7 @@ const UTIL = require('./util');
 module.exports = {
 
   getRandomEvent: function(message) {
-    switch (UTIL.getRandomInt(0, 2)) {
+    switch (UTIL.getRandomInt(0, 256)) {
       case 1:
         module.exports.getingRobbed(message);
         break;
@@ -16,7 +16,7 @@ module.exports = {
   },
 
 getingRobbed: function(message) {
-  var ammount = UTIL.getRandomInt(10, 250);
+  var ammount = UTIL.getRandomInt(1, 100);
   message.channel.send(message.author + ' OHHHHH NOOOO!!!!!! \nYou gabled too much and fell asleep. \n\nIn the meantime someone stole your hard earned cash....\n' + ammount + ' coins are missing');
 }
 };
