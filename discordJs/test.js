@@ -4,10 +4,10 @@
 
 // Import the discord.js module
 const DISCORD = require("discord.js");
-
 const EXECFILE = require("child_process").execFile;
 const FS = require('fs');
 const SLTS = require('./slots');
+const EVENTS = require('./events');
 // Create an instance of a Discord CLIENT
 const CLIENT = new DISCORD.Client();
 
@@ -88,21 +88,23 @@ CLIENT.on('message', message => {
       });
     }
   }
+
   function isSlots(strText) {
     strText = strText.toLowerCase();
     if (strText == 'slots' || strText == 'multislots') {
+      EVENTS.getRandomEvent(message);
       return true;
     }
   }
   // If the message is "slots"
   if (isSlots(message.content)) {
     // Send to the same channel
-    console.log('slots');
     slots();
   }
 
   if (message.content === 'wage') {
     // Send to the same channel
+    EVENTS.getRandomEvent(message);
     wage();
   }
 
@@ -111,17 +113,12 @@ CLIENT.on('message', message => {
     message.channel.send(message.author.id);
   }
 
-  if (message.content === 'test') {
-    // Send to the same channel
-    message.channel.send('yep just a test! this is a second test, 3test');
-  }
-
   if (message.content === 'patch') {
     // Send to the same channel
     EXECFILE("/root/makobot/MakoBot/discordJs/syncGitRepo.sh");
     message.channel.send("patched git");
     message.channel.send("restart now");
-  };
+  }
 });
 // Log our bot in
 CLIENT.login(TOKEN);
