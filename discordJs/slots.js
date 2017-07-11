@@ -1,12 +1,11 @@
 /*
 Here are all the functions necessary for the slots command
 */
-const util = require('./util');
+const UTIL = require('./util');
 
 module.exports = {
 
   checkrequirements: function(chkobj) {
-    console.log('checkrequirements');
     if (chkobj.coins >= 1) {
       return true;
     } else {
@@ -15,7 +14,6 @@ module.exports = {
   },
 
   genSlotsNumbers: function() {
-    console.log('genSlotsNumbers');
     var slotRows = [
       0,
       0,
@@ -62,7 +60,7 @@ module.exports = {
         5,
         6
       ];
-      var randNum = util.getRandomInt(1, numbers.length - 1);
+      var randNum = UTIL.getRandomInt(1, numbers.length - 1);
       if (i <= 3) {
         slotRows[i] = numbers[randNum];
       }
@@ -80,20 +78,19 @@ module.exports = {
   },
 
   changeNrToEmo: function(slotRows2) {
-    console.log('ChangeNrToEmo');
     for (i = 0; i < slotRows2.length;) {
       if (slotRows2[i] == 1) {
-        slotRows2[i] = ":saxophone:";
+        slotRows2[i] = "<:sl_1:334463233740242954>";
       } else if (slotRows2[i] == 2) {
-        slotRows2[i] = ":ok_hand:";
+        slotRows2[i] = "<:sl_2:334463233706426369>";
       } else if (slotRows2[i] == 3) {
-        slotRows2[i] = ":guitar:";
+        slotRows2[i] = "<:sl_3:334463234352349185>";
       } else if (slotRows2[i] == 4) {
-        slotRows2[i] = ":drum:";
+        slotRows2[i] = "<:sl_4:334463233513619466>";
       } else if (slotRows2[i] == 5) {
-        slotRows2[i] = ":microphone:";
+        slotRows2[i] = "<:sl_5:334463234155479043>";
       } else if (slotRows2[i] == 6) {
-        slotRows2[i] = ":rosette:";
+        slotRows2[i] = "<:sl_6:334463234298085376>";
       }
       i++;
     }
@@ -101,7 +98,6 @@ module.exports = {
   },
 
   slotsLogic: function(slotRows, coins, content) {
-    console.log('slotsLogic');
     var mltipler = 0;
     if (content === 'slots') {
       if (slotRows[3] == 1 && slotRows[4] == 1 && slotRows[5] == 1) {
@@ -128,15 +124,19 @@ module.exports = {
       } else if (slotRows[0] == 3 && slotRows[1] == 3 && slotRows[2] == 3 || slotRows[3] == 3 && slotRows[4] == 3 && slotRows[5] == 3 || slotRows[6] == 3 && slotRows[7] == 3 && slotRows[8] == 3) {
         mltipler = 4;
       } else if (slotRows[0] == 4 && slotRows[1] == 4 && slotRows[2] == 4 || slotRows[3] == 4 && slotRows[4] == 4 && slotRows[5] == 4 || slotRows[6] == 4 && slotRows[7] == 4 && slotRows[8] == 4) {
-        mltipler = 8
+        mltipler = 8;
       } else if (slotRows[0] == 5 && slotRows[1] == 5 && slotRows[2] == 5 || slotRows[3] == 5 && slotRows[4] == 5 && slotRows[5] == 5 || slotRows[6] == 5 && slotRows[7] == 5 && slotRows[8] == 5) {
         mltipler = 16;
       } else if (slotRows[0] == 6 && slotRows[1] == 6 && slotRows[2] == 6 || slotRows[3] == 6 && slotRows[4] == 6 && slotRows[5] == 6 || slotRows[6] == 6 && slotRows[7] == 6 && slotRows[8] == 6) {
         mltipler = 32;
       }
     }
-    coins = coins * mltipler;
-    return {coins, mltipler, slotRows};
+    coins = coins + coins * mltipler;
+    return {
+      coins,
+      mltipler,
+      slotRows
+    };
   }
 
 };
