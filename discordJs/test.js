@@ -71,7 +71,7 @@ CLIENT.on('message', message => {
         UTIL.addCoins(message);
       } else {
         console.log(obj.timestamp);
-        message.channel.send('Sorry!\nIt looks like you already got your daily reward.\nPlease try it again tomorrow!');
+        message.channel.send('Sorry!\nIt looks like you already got your daily reward.\nPlease try again in ' +  UTIL.getHours(Number(obj.timestamp) + 86400 - ts));
       }
     } else {
       UTIL.addCoins(message);
@@ -114,6 +114,10 @@ CLIENT.on('message', message => {
     EXECFILE("/root/makobot/MakoBot/discordJs/syncGitRepo.sh");
     message.channel.send("patched git");
     message.channel.send("restart now");
+  }
+
+  if(message.content === 'mako credits'){
+    UTIL.getCredits(message);
   }
 });
 // Log our bot in

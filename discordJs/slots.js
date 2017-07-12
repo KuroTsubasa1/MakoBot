@@ -6,7 +6,7 @@ const UTIL = require('./util');
 module.exports = {
 
   checkrequirements: function(chkobj,amount) {
-    if (chkobj.coins >= 1 && chkobj.coins < amount[2] ) {
+    if (chkobj.coins >= 1 && chkobj.coins >= Number(amount[2]) ) {
       return true;
     } else {
       return false;
