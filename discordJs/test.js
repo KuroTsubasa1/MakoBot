@@ -24,21 +24,25 @@ CLIENT.on('ready', () => {
 // Create an event listener for messages
 CLIENT.on('message', message => {
 
-  function slots(ammount) {
+  function slots(amount) {
     var path = '/tmp/' + message.author.id + '.json';
-    var obj;
-    if (FS.existsSync(path)) {
-      var readFile = FS.readFileSync(path);
-      obj = JSON.parse(readFile);
+    if (FS.existsSync(path) == false) {
+      UTIL.addCoins(message);
     }
-    if (SLTS.checkrequirements(obj)) {
-      console.log(ammount[1]);
-      obj.coins = Number(obj.coins) + sendSlotResults(SLTS.slotsLogic(SLTS.genSlotsNumbers(), Number(ammount[1]), ammount[0].toLowerCase()));
+    var readFile = FS.readFileSync(path);
+    var obj = JSON.parse(readFile);
+
+    if (SLTS.checkrequirements(obj, amount)) {
+      console.log(amount[2]);
+      obj.coins = Number(obj.coins) + sendSlotResults(SLTS.slotsLogic(SLTS.genSlotsNumbers(), Number(amount[2]), amount[1].toLowerCase()));
       FS.writeFile(path, JSON.stringify(obj), function(err) {
         if (err) {
           return console.log(err);
         }
       });
+    } else {
+      console.log(obj.coins);
+      message.channel.send("You don't have enough coins to play slots");
     }
   }
   // Handles the display of the slots results
@@ -56,48 +60,35 @@ CLIENT.on('message', message => {
   }
 
   function wage() {
-    // 86400
     var ts = UTIL.getTimestamp();
-    var path = '/tmp/' + message.author.id + ".json";
+    var path = '/tmp/' + message.author.id + '.json';
+    var readFile;
+    var obj;
     if (FS.existsSync(path)) {
-      var readFile = FS.readFileSync(path);
-      var obj = JSON.parse(readFile);
-
+      readFile = FS.readFileSync(path);
+      obj = JSON.parse(readFile);
       if (ts > Number(obj.timestamp) + 86400) {
-        obj.coins = obj.coins + UTIL.getRandomInt(50, 500);
-        FS.writeFile(path, JSON.stringify(obj), function(err) {
-          if (err) {
-            return console.log(err);
-          }
-        });
-        message.channel.send("You recived" + obj.coins + " Coins !!!!");
-        message.channel.send("You now have " + obj.coins + " coins in your account.");
+        UTIL.addCoins(message);
       } else {
+        console.log(obj.timestamp);
         message.channel.send('Sorry!\nIt looks like you already got your daily reward.\nPlease try it again tomorrow!');
       }
-
     } else {
-      FS.writeFile(path, '{"coins":"100","timestamp":"' + ts + '"}', function(err) {
-        if (err) {
-          return console.log(err);
-        }
-        message.channel.send("Mako created a bank account for you !");
-        message.channel.send("You recived 100 Coins !!!!");
-      });
+      UTIL.addCoins(message);
     }
   }
 
   function isSlots(strText) {
     strText = strText.toLowerCase();
-    if (strText.includes("slots") || strText.includes("multislots")) {
+    if (strText.includes("mako slots") || strText.includes("mako multislots")) {
       return true;
     }
   }
   // If the message is "slots"
   if (isSlots(message.content) && message.author.id != 331717125830082560) {
     // Send to the same channel
-    var str = message.content.toLowerCase().split(" ", 2);
-    if (!isNaN(Number(str[1]))) {
+    var str = message.content.toLowerCase().split(" ", 3);
+    if (!isNaN(Number(str[2]))) {
       EVENTS.getRandomEvent(message);
       slots(str);
     } else {
@@ -107,13 +98,13 @@ CLIENT.on('message', message => {
 
   }
 
-  if (message.content === 'wage') {
+  if (message.content === 'mako wage') {
     // Send to the same channel
     EVENTS.getRandomEvent(message);
     wage();
   }
 
-  if (message.content === 'id') {
+  if (message.content === 'mako id') {
     // Send to the same channel
     message.channel.send(message.author.id);
   }

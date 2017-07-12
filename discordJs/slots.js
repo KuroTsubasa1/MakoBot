@@ -5,8 +5,8 @@ const UTIL = require('./util');
 
 module.exports = {
 
-  checkrequirements: function(chkobj) {
-    if (chkobj.coins >= 1) {
+  checkrequirements: function(chkobj,amount) {
+    if (chkobj.coins >= 1 && chkobj.coins < amount[2] ) {
       return true;
     } else {
       return false;
@@ -101,17 +101,17 @@ module.exports = {
     var mltipler = 0;
     if (content === 'slots') {
       if (slotRows[3] == 1 && slotRows[4] == 1 && slotRows[5] == 1) {
-        mltipler = 2;
-      } else if (slotRows[3] == 2 && slotRows[4] == 2 && slotRows[5] == 2) {
         mltipler = 4;
-      } else if (slotRows[3] == 3 && slotRows[4] == 3 && slotRows[5] == 3) {
+      } else if (slotRows[3] == 2 && slotRows[4] == 2 && slotRows[5] == 2) {
         mltipler = 8;
-      } else if (slotRows[3] == 4 && slotRows[4] == 4 && slotRows[5] == 4) {
+      } else if (slotRows[3] == 3 && slotRows[4] == 3 && slotRows[5] == 3) {
         mltipler = 16;
-      } else if (slotRows[3] == 5 && slotRows[4] == 5 && slotRows[5] == 5) {
+      } else if (slotRows[3] == 4 && slotRows[4] == 4 && slotRows[5] == 4) {
         mltipler = 32;
-      } else if (slotRows[3] == 6 && slotRows[4] == 6 && slotRows[5] == 6) {
+      } else if (slotRows[3] == 5 && slotRows[4] == 5 && slotRows[5] == 5) {
         mltipler = 64;
+      } else if (slotRows[3] == 6 && slotRows[4] == 6 && slotRows[5] == 6) {
+        mltipler = 128;
       }
     }
 
@@ -120,15 +120,15 @@ module.exports = {
       if (slotRows[0] == 1 && slotRows[1] == 1 && slotRows[2] == 1 || slotRows[3] == 1 && slotRows[4] == 1 && slotRows[5] == 1 || slotRows[6] == 1 && slotRows[7] == 1 && slotRows[8] == 1) {
         mltipler = 1;
       } else if (slotRows[0] == 2 && slotRows[1] == 2 && slotRows[2] == 2 || slotRows[3] == 2 && slotRows[4] == 2 && slotRows[5] == 2 || slotRows[6] == 2 && slotRows[7] == 2 && slotRows[8] == 2) {
-        mltipler = 2;
-      } else if (slotRows[0] == 3 && slotRows[1] == 3 && slotRows[2] == 3 || slotRows[3] == 3 && slotRows[4] == 3 && slotRows[5] == 3 || slotRows[6] == 3 && slotRows[7] == 3 && slotRows[8] == 3) {
         mltipler = 4;
-      } else if (slotRows[0] == 4 && slotRows[1] == 4 && slotRows[2] == 4 || slotRows[3] == 4 && slotRows[4] == 4 && slotRows[5] == 4 || slotRows[6] == 4 && slotRows[7] == 4 && slotRows[8] == 4) {
+      } else if (slotRows[0] == 3 && slotRows[1] == 3 && slotRows[2] == 3 || slotRows[3] == 3 && slotRows[4] == 3 && slotRows[5] == 3 || slotRows[6] == 3 && slotRows[7] == 3 && slotRows[8] == 3) {
         mltipler = 8;
-      } else if (slotRows[0] == 5 && slotRows[1] == 5 && slotRows[2] == 5 || slotRows[3] == 5 && slotRows[4] == 5 && slotRows[5] == 5 || slotRows[6] == 5 && slotRows[7] == 5 && slotRows[8] == 5) {
+      } else if (slotRows[0] == 4 && slotRows[1] == 4 && slotRows[2] == 4 || slotRows[3] == 4 && slotRows[4] == 4 && slotRows[5] == 4 || slotRows[6] == 4 && slotRows[7] == 4 && slotRows[8] == 4) {
         mltipler = 16;
-      } else if (slotRows[0] == 6 && slotRows[1] == 6 && slotRows[2] == 6 || slotRows[3] == 6 && slotRows[4] == 6 && slotRows[5] == 6 || slotRows[6] == 6 && slotRows[7] == 6 && slotRows[8] == 6) {
+      } else if (slotRows[0] == 5 && slotRows[1] == 5 && slotRows[2] == 5 || slotRows[3] == 5 && slotRows[4] == 5 && slotRows[5] == 5 || slotRows[6] == 5 && slotRows[7] == 5 && slotRows[8] == 5) {
         mltipler = 32;
+      } else if (slotRows[0] == 6 && slotRows[1] == 6 && slotRows[2] == 6 || slotRows[3] == 6 && slotRows[4] == 6 && slotRows[5] == 6 || slotRows[6] == 6 && slotRows[7] == 6 && slotRows[8] == 6) {
+        mltipler = 64;
       }
     }
 
