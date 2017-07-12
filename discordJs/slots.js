@@ -131,7 +131,12 @@ module.exports = {
         mltipler = 32;
       }
     }
-    coins = coins * mltipler;
+
+    if(mltipler == 0){
+      coins = coins * -1;
+    }else {
+      coins = coins * mltipler;
+    }
     console.log('coins: ' + coins);
     console.log('mltipler: ' + mltipler);
     return {
