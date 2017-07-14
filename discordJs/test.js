@@ -63,11 +63,11 @@ CLIENT.on('message', message => {
     if (FS.existsSync(path)) {
       readFile = FS.readFileSync(path);
       obj = JSON.parse(readFile);
-      if (ts > Number(obj.timestamp) + 86400) {
+      if (ts > Number(obj.timestamp) + 54000) {
         UTIL.addCoins(message);
       } else {
         console.log(obj.timestamp);
-        message.channel.send('Sorry!\nIt looks like you already got your daily reward.\nPlease try again in ' + UTIL.getHours(Number(obj.timestamp) + 86400 - ts));
+        message.channel.send('Sorry!\nIt looks like you already got your daily reward.\nPlease try again in ' + UTIL.getHours(Number(obj.timestamp) + 54000 - ts));
       }
     } else {
       UTIL.addCoins(message);
