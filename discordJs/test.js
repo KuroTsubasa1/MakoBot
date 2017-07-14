@@ -35,15 +35,7 @@ CLIENT.on('message', message => {
     if (SLTS.checkrequirements(obj, amount)) {
       console.log(amount[2]);
       obj.coins = Number(obj.coins) + sendSlotResults(SLTS.slotsLogic(SLTS.genSlotsNumbers(), Number(amount[2]), amount[1].toLowerCase()));
-<<<<<<< HEAD
-      FS.writeFileSync(path, JSON.stringify(obj), function(err) {
-        if (err) {
-          return console.log(err);
-        }
-      });
-=======
       FS.writeFileSync(path, JSON.stringify(obj));
->>>>>>> origin/master
     } else {
       console.log(obj.coins);
       message.channel.send("You don't have enough coins to play slots");
