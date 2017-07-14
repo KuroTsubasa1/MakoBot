@@ -29,21 +29,21 @@ CLIENT.on('message', message => {
     if (FS.existsSync(path) == false) {
       UTIL.addCoins(message);
     }
-    var readFile = FS.readFileSync(path, function(err) {
-      if (err) {
-        return console.log(err);
-      }
-    });
+    var readFile = FS.readFileSync(path);
     var obj = JSON.parse(readFile);
 
     if (SLTS.checkrequirements(obj, amount)) {
       console.log(amount[2]);
       obj.coins = Number(obj.coins) + sendSlotResults(SLTS.slotsLogic(SLTS.genSlotsNumbers(), Number(amount[2]), amount[1].toLowerCase()));
-      FS.writeFile(path, JSON.stringify(obj), function(err) {
+<<<<<<< HEAD
+      FS.writeFileSync(path, JSON.stringify(obj), function(err) {
         if (err) {
           return console.log(err);
         }
       });
+=======
+      FS.writeFileSync(path, JSON.stringify(obj));
+>>>>>>> origin/master
     } else {
       console.log(obj.coins);
       message.channel.send("You don't have enough coins to play slots");
@@ -94,7 +94,7 @@ CLIENT.on('message', message => {
     if (UTIL.readObjProperty(message, 'slotTimer') == null) {
       UTIL.writeObjProperty(message, 'slotTimer', UTIL.getTimestamp());
     } else {
-      if (Number(UTIL.readObjProperty(message, 'slotTimer')) + 7 < UTIL.getTimestamp()) {
+      if (Number(UTIL.readObjProperty(message, 'slotTimer')) + 4 < UTIL.getTimestamp()) {
         UTIL.writeObjProperty(message, 'slotTimer', UTIL.getTimestamp());
         var str = message.content.toLowerCase().split(" ", 3);
         if (!isNaN(Number(str[2]))) {
