@@ -107,7 +107,7 @@ module.exports = {
       } else if (slotRows2[i] == 5) {
         slotRows2[i] = "<:sl_5:334463234155479043>";
       } else if (slotRows2[i] == 6) {
-        slotRows2[i] = "<:sl_6:334463234298085376>";
+        slotRows2[i] = "<:sl_6:335304886961045506>";
       }
       i++;
     }
@@ -161,6 +161,6 @@ module.exports = {
       mltipler,
       slotRows
     };
-  }
+  },
 
 };

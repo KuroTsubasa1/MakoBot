@@ -29,7 +29,11 @@ CLIENT.on('message', message => {
     if (FS.existsSync(path) == false) {
       UTIL.addCoins(message);
     }
-    var readFile = FS.readFileSync(path);
+    var readFile = FS.readFileSync(path, function(err) {
+      if (err) {
+        return console.log(err);
+      }
+    });
     var obj = JSON.parse(readFile);
 
     if (SLTS.checkrequirements(obj, amount)) {
@@ -71,7 +75,7 @@ CLIENT.on('message', message => {
         UTIL.addCoins(message);
       } else {
         console.log(obj.timestamp);
-        message.channel.send('Sorry!\nIt looks like you already got your daily reward.\nPlease try again in ' +  UTIL.getHours(Number(obj.timestamp) + 86400 - ts));
+        message.channel.send('Sorry!\nIt looks like you already got your daily reward.\nPlease try again in ' + UTIL.getHours(Number(obj.timestamp) + 86400 - ts));
       }
     } else {
       UTIL.addCoins(message);
@@ -86,16 +90,24 @@ CLIENT.on('message', message => {
   }
   // If the message is "slots"
   if (isSlots(message.content) && message.author.id != 331717125830082560) {
-    // Send to the same channel
-    var str = message.content.toLowerCase().split(" ", 3);
-    if (!isNaN(Number(str[2]))) {
-      EVENTS.getRandomEvent(message);
-      slots(str);
+
+    if (UTIL.readObjProperty(message, 'slotTimer') == null) {
+      UTIL.writeObjProperty(message, 'slotTimer', UTIL.getTimestamp());
     } else {
-      message.channel.send(message.author + ' you forgot to specify an ammount of coins\nThe command should look like this:\n<slots> <Coins>');
+      if (Number(UTIL.readObjProperty(message, 'slotTimer')) + 7 < UTIL.getTimestamp()) {
+        UTIL.writeObjProperty(message, 'slotTimer', UTIL.getTimestamp());
+        var str = message.content.toLowerCase().split(" ", 3);
+        if (!isNaN(Number(str[2]))) {
+          EVENTS.getRandomEvent(message);
+          slots(str);
+        } else {
+          message.channel.send(message.author + ' you forgot to specify an ammount of coins\nThe command should look like this:\n<slots> <Coins>');
+        }
+
+      } else {
+        message.channel.send('You need to cool down a bit');
+      }
     }
-
-
   }
 
   if (message.content === 'mako wage') {
@@ -116,7 +128,7 @@ CLIENT.on('message', message => {
     message.channel.send("restart now");
   }
 
-  if(message.content === 'mako credits'){
+  if (message.content === 'mako credits') {
     UTIL.getCredits(message);
   }
 });
