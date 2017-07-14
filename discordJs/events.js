@@ -26,10 +26,6 @@ getingRobbed: function(message) {
     obj = JSON.parse(readFile);
     obj.coins = Number(obj.coins) - ammount;
   }
-    FS.writeFile(path, JSON.stringify(obj), function(err) {
-      if (err) {
-        return console.log(err);
-      }
-    });
+    FS.writeFile(path, JSON.stringify(obj));
 }
 };

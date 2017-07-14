@@ -20,23 +20,15 @@ module.exports = {
 
       var gain = module.exports.getRandomInt(50, 500);
       obj.coins = Number(obj.coins) + Number(gain);
-      FS.writeFileSync(path, JSON.stringify(obj), function(err) {
-        if (err) {
-          return console.log(err);
-        }
-      });
+      FS.writeFileSync(path, JSON.stringify(obj));
       message.channel.send("You received " + gain + " Coins !!!!");
       message.channel.send("You now have " + obj.coins + " coins in your account.");
 
     } else {
       var ts = module.exports.getTimestamp();
-      FS.writeFileSync(path, '{"coins":"250","timestamp":"' + ts + '"}', function(err) {
-        if (err) {
-          return console.log(err);
-        }
-        message.channel.send("Mako created a bank account for you !");
-        message.channel.send("You received 250 Coins !!!!");
-      });
+      FS.writeFileSync(path, '{"coins":"250","timestamp":"' + ts + '"}');
+      message.channel.send("Mako created a bank account for you !");
+      message.channel.send("You received 250 Coins !!!!");
     }
   },
 
