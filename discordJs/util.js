@@ -57,12 +57,12 @@ module.exports = {
     var path = '/tmp/' + message.author.id + ".json";
     var obj;
     if (FS.existsSync(path)) {
-      var readFile = FS.readFile(path,'utf8', function(err){
+      var readFileInput = FS.readFile(path,'utf8', function(err){
         if (err) {
           return console.log(err);
                 }
       });
-      obj = JSON.parse(readFile);
+      obj = JSON.parse(readFileInput);
       message.channel.send(message.author + ' you have ' + obj.coins);
     } else {
       message.channel.send('You need a bank account to use this command!\nPlease type <mako wage> to create one.');
@@ -98,12 +98,12 @@ module.exports = {
   writeObjProperty: function(message, propertyName, propertyValue) {
     var path = '/tmp/' + message.author.id + '.json';
     if (FS.existsSync(path) == true) {
-      var readFile = FS.readFile(path,'utf8', function(err){
+      var readFileInput = FS.readFile(path,'utf8', function(err){
         if (err) {
           return console.log(err);
                 }
       });
-      var obj = JSON.parse(readFile);
+      var obj = JSON.parse(readFileInput);
       obj[propertyName] = propertyValue;
       FS.writeFile(path, JSON.stringify(obj),function(err){
         if (err) {
@@ -123,8 +123,12 @@ module.exports = {
   readObjProperty: function(message, propertyName) {
     var path = '/tmp/' + message.author.id + '.json';
     if (FS.existsSync(path) == true) {
-      var readFile = FS.readFile(path);
-      var obj = JSON.parse(readFile);
+      var readFileInput = FS.readFile(path,'utf8', function(err){
+        if (err) {
+          return console.log(err);
+                }
+      });
+      var obj = JSON.parse(readFileInput);
       if (typeof obj[propertyName] == 'undefined') {
         console.log('propertyName does not exist');
         return null;
