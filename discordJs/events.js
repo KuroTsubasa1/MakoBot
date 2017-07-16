@@ -22,10 +22,18 @@ getingRobbed: function(message) {
   var path = '/tmp/' + message.author.id + '.json';
   var obj;
   if (FS.existsSync(path)) {
-    var readFile = FS.readFileSync(path);
+    var readFile = FS.readFile(path,'utf8', function(err){
+      if (err) {
+        return console.log(err);
+              }
+    });
     obj = JSON.parse(readFile);
     obj.coins = Number(obj.coins) - ammount;
   }
-    FS.writeFile(path, JSON.stringify(obj));
+    FS.writeFile(path, JSON.stringify(obj),function(err){
+      if (err) {
+        return console.log(err);
+              }
+    });
 }
 };
