@@ -57,7 +57,11 @@ module.exports = {
     var path = '/tmp/' + message.author.id + ".json";
     var obj;
     if (FS.existsSync(path)) {
-      var readFile = FS.readFile(path);
+      var readFile = FS.readFile(path,'utf8', function(err){
+        if (err) {
+          return console.log(err);
+                }
+      });
       obj = JSON.parse(readFile);
       message.channel.send(message.author + ' you have ' + obj.coins);
     } else {
@@ -94,7 +98,11 @@ module.exports = {
   writeObjProperty: function(message, propertyName, propertyValue) {
     var path = '/tmp/' + message.author.id + '.json';
     if (FS.existsSync(path) == true) {
-      var readFile = FS.readFile(path);
+      var readFile = FS.readFile(path,'utf8', function(err){
+        if (err) {
+          return console.log(err);
+                }
+      });
       var obj = JSON.parse(readFile);
       obj[propertyName] = propertyValue;
       FS.writeFile(path, JSON.stringify(obj),function(err){
