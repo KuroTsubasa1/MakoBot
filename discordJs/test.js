@@ -77,7 +77,6 @@ CLIENT.on('message', message => {
       obj = JSON.parse(readFile);
       if (ts > Number(obj.timestamp) + 54000) {
         UTIL.addCoins(message);
-        UTIL.writeObjProperty(message,'timestamp', ts);
       } else {
         console.log(obj.timestamp);
         message.channel.send('Sorry!\nIt looks like you already got your daily reward.\nPlease try again in ' + UTIL.getHours(Number(obj.timestamp) + 54000 - ts));
