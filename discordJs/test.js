@@ -74,11 +74,7 @@ CLIENT.on('message', message => {
           return console.log(err);
                 }
       });
-      obj = JSON.parse(readFile,'utf8', function(err){
-        if (err) {
-          return console.log(err);
-                }
-      });
+      obj = JSON.parse(readFile);
       if (ts > Number(obj.timestamp) + 54000) {
         UTIL.addCoins(message);
         UTIL.writeObjProperty(message,'timestamp', ts);
