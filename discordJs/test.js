@@ -29,21 +29,13 @@ CLIENT.on('message', message => {
     if (FS.existsSync(path) == false) {
       UTIL.addCoins(message);
     }
-    var readFile = FS.readFile(path,'utf8', function(err){
-      if (err) {
-        return console.log(err);
-              }
-    });
+    var readFile = FS.readFileSync(path);
     var obj = JSON.parse(readFile);
 
     if (SLTS.checkrequirements(obj, amount)) {
       console.log(amount[2]);
       obj.coins = Number(obj.coins) + sendSlotResults(SLTS.slotsLogic(SLTS.genSlotsNumbers(), Number(amount[2]), amount[1].toLowerCase()));
-      FS.writeFile(path, JSON.stringify(obj), function(err){
-        if (err) {
-          return console.log(err);
-                }
-      });
+      FS.writeFileSync(path, JSON.stringify(obj));
     } else {
       console.log(obj.coins);
       message.channel.send("You don't have enough coins to play slots");
@@ -69,11 +61,7 @@ CLIENT.on('message', message => {
     var readFile;
     var obj;
     if (FS.existsSync(path)) {
-      readFile = FS.readFile(path,'utf8', function(err){
-        if (err) {
-          return console.log(err);
-                }
-      });
+      readFile = FS.readFileSync(path);
       obj = JSON.parse(readFile);
       if (ts > Number(obj.timestamp) + 54000) {
         UTIL.addCoins(message);
