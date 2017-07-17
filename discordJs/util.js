@@ -9,14 +9,13 @@ module.exports = {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   },
 
-  addCoins: function(message) {
+  addCoins: function(message, gain) {
     // 86400
     var path = '/tmp/' + message.author.id + ".json";
     if (FS.existsSync(path)) {
       var readFile = FS.readFileSync(path);
       var obj = JSON.parse(readFile);
 
-      var gain = module.exports.getRandomInt(50, 500);
       obj.coins = Number(obj.coins) + Number(gain);
 
       FS.writeFileSync(path);
@@ -30,7 +29,19 @@ module.exports = {
       message.channel.send("You received 250 Coins !!!!");
     }
   },
-
+  subtrCoins: function(messsage, loss) {
+    var path = '/tmp/' + message.author.id + ".json";
+    if (FS.existsSync(path)) {
+      var readFile = FS.readFileSync(path);
+      var obj = JSON.parse(readFile);
+      obj.coins = Number(obj.coins) - Number(gain);
+      FS.writeFileSync(path);
+      message.channel.send("You lost " + gain + " Coins !!!!");
+      message.channel.send("You now have " + obj.coins + " coins in your account.");
+    } else {
+      message.channel.send("First you have to open an account.");
+    }
+  },
   getTimestamp: function() {
     var ts = Math.floor(Date.now() / 1000);
     return ts;
@@ -102,5 +113,16 @@ module.exports = {
       console.log('file does not exist');
       return null;
     }
+  },
+  checklocation: function(message, location) {
+    if (location == module.exports.readObjProperty(message, 'location')) {
+      return True;
+    } else {
+      return False;
+    }
+  },
+  writeLocation: function(message, location) {
+    writeObjProperty(message, 'location', location);
   }
+
 };

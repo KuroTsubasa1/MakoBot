@@ -27,7 +27,7 @@ CLIENT.on('message', message => {
   function slots(amount) {
     var path = '/tmp/' + message.author.id + '.json';
     if (FS.existsSync(path) == false) {
-      UTIL.addCoins(message);
+      UTIL.addCoins(message, UTIL.getRandomInt(50, 500));
     }
     var readFile = FS.readFileSync(path);
     var obj = JSON.parse(readFile);
@@ -64,13 +64,13 @@ CLIENT.on('message', message => {
       readFile = FS.readFileSync(path);
       obj = JSON.parse(readFile);
       if (ts > Number(obj.timestamp) + 54000) {
-        UTIL.addCoins(message);
+        UTIL.addCoins(message, UTIL.getRandomInt(50, 500));
       } else {
         console.log(obj.timestamp);
         message.channel.send('Sorry!\nIt looks like you already got your daily reward.\nPlease try again in ' + UTIL.getHours(Number(obj.timestamp) + 54000 - ts));
       }
     } else {
-      UTIL.addCoins(message);
+      UTIL.addCoins(message, UTIL.getRandomInt(50, 500));
     }
   }
 
@@ -120,8 +120,11 @@ CLIENT.on('message', message => {
     message.channel.send("restart now");
   }
 
-  if (message.content === 'mako credits') {
+  if (message.content === 'mako coins') {
     UTIL.getCredits(message);
+  }
+  if (message.content === 'mako well'){
+    
   }
 });
 // Log our bot in
