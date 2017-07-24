@@ -18,7 +18,8 @@ module.exports = {
 
       obj.coins = Number(obj.coins) + Number(gain);
 
-      FS.writeFileSync(path);
+      console.log('util.js line 21 : ' +  path);
+      FS.writeFileSync(path, JSON.stringify(obj));
       message.channel.send("You received " + gain + " Coins !!!!");
       message.channel.send("You now have " + obj.coins + " coins in your account.");
 
@@ -35,7 +36,8 @@ module.exports = {
       var readFile = FS.readFileSync(path);
       var obj = JSON.parse(readFile);
       obj.coins = Number(obj.coins) - Number(gain);
-      FS.writeFileSync(path);
+      console.log('util.js line 38 : ' +  JSON.stringify(obj));
+      FS.writeFileSync(path, JSON.stringify(obj));
       message.channel.send("You lost " + gain + " Coins !!!!");
       message.channel.send("You now have " + obj.coins + " coins in your account.");
     } else {
@@ -91,6 +93,7 @@ module.exports = {
       var readFileInput = FS.readFileSync(path);
       var obj = JSON.parse(readFileInput);
       obj[propertyName] = propertyValue;
+      console.log('util.js line 97 : ' + JSON.stringify(obj));
       FS.writeFileSync(path, JSON.stringify(obj));
 
     } else {
@@ -116,9 +119,9 @@ module.exports = {
   },
   checklocation: function(message, location) {
     if (location == module.exports.readObjProperty(message, 'location')) {
-      return True;
+      return true;
     } else {
-      return False;
+      return false;
     }
   },
   writeLocation: function(message, location) {

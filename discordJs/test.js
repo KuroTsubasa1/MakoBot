@@ -35,6 +35,7 @@ CLIENT.on('message', message => {
     if (SLTS.checkrequirements(obj, amount)) {
       console.log(amount[2]);
       obj.coins = Number(obj.coins) + sendSlotResults(SLTS.slotsLogic(SLTS.genSlotsNumbers(), Number(amount[2]), amount[1].toLowerCase()));
+      console.log('test.js line 38 : ' +  JSON.stringify(obj));
       FS.writeFileSync(path, JSON.stringify(obj));
     } else {
       console.log(obj.coins);
@@ -57,17 +58,18 @@ CLIENT.on('message', message => {
 
   function wage() {
     var ts = UTIL.getTimestamp();
+    var cooldown = 3600;   /* for test changed to 3600 has to be reverted to 54000*/
     var path = '/tmp/' + message.author.id + '.json';
     var readFile;
     var obj;
     if (FS.existsSync(path)) {
       readFile = FS.readFileSync(path);
       obj = JSON.parse(readFile);
-      if (ts > Number(obj.timestamp) + 54000) {
+      if (ts > Number(obj.timestamp) + cooldown ) {
         UTIL.addCoins(message, UTIL.getRandomInt(50, 500));
       } else {
         console.log(obj.timestamp);
-        message.channel.send('Sorry!\nIt looks like you already got your daily reward.\nPlease try again in ' + UTIL.getHours(Number(obj.timestamp) + 54000 - ts));
+        message.channel.send('Sorry!\nIt looks like you already got your daily reward.\nPlease try again in ' + UTIL.getHours(Number(obj.timestamp) + cooldown - ts));
       }
     } else {
       UTIL.addCoins(message, UTIL.getRandomInt(50, 500));
@@ -124,7 +126,7 @@ CLIENT.on('message', message => {
     UTIL.getCredits(message);
   }
   if (message.content === 'mako well'){
-    
+
   }
 });
 // Log our bot in
