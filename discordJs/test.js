@@ -121,12 +121,14 @@ CLIENT.on('message', message => {
     message.channel.send("patched git");
     message.channel.send("restart now");
   }
-
   if (message.content === 'mako coins') {
     UTIL.getCredits(message);
   }
   if (message.content === 'mako well'){
 
+  }
+  if (message.content === 'jail'){
+    UTIL.jail(message);
   }
 });
 // Log our bot in

@@ -126,6 +126,10 @@ module.exports = {
   },
   writeLocation: function(message, location) {
     writeObjProperty(message, 'location', location);
+  },
+
+  jail: function(message) {
+    message.channel.sendFile('./static/jail.jpg');
   }
 
 };
