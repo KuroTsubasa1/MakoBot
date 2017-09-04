@@ -129,9 +129,9 @@ module.exports = {
   },
 
   jail: function(message) {
-    path = process.cwd();
-    console.log(path);
-    message.channel.sendFile('jail.jpg');
+    let path = process.cwd();
+    let file = 'jail.jpg';
+    message.channel.sendFile(file);
   }
 
 };
