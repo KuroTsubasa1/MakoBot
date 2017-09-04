@@ -128,7 +128,7 @@ CLIENT.on('message', message => {
 
   }
   if (message.content === 'jail'){
-    UTIL.jail(message,process.cwd());
+    UTIL.jail(message);
   }
 });
 // Log our bot in

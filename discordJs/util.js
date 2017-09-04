@@ -128,7 +128,9 @@ module.exports = {
     writeObjProperty(message, 'location', location);
   },
 
-  jail: function(message, path) {
+  jail: function(message) {
+    path = process.cwd();
+    console.log(path);
     message.channel.sendFile(path + '/static/jail.jpg');
   }
 
