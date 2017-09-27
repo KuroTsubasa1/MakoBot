@@ -57,7 +57,7 @@ CLIENT.on('message', message => {
 
   function wage() {
     var ts = UTIL.getTimestamp();
-    var cooldown = 3600;   /* for test changed to 3600 has to be reverted to 54000*/
+    var cooldown = 54000;   /* for test changed to 3600 has to be reverted to 54000*/
     var path = '/tmp/' + message.author.id + '.json';
     var readFile;
     var obj;
