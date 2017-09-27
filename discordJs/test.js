@@ -1,7 +1,3 @@
-/*
-  A ping pong bot, whenever you send "ping", it replies "pong".
-*/
-
 // Import the discord.js module
 const DISCORD = require("discord.js");
 const EXECFILE = require("child_process").execFile;
@@ -10,6 +6,8 @@ const SLTS = require('./slots');
 const EVENTS = require('./events');
 const UTIL = require('./util');
 const MEME = require('./memeGenerator');
+
+const MAKOID = 331717125830082560;
 // Create an instance of a Discord CLIENT
 const CLIENT = new DISCORD.Client();
 
@@ -84,7 +82,7 @@ CLIENT.on('message', message => {
     }
   }
   // If the message is "slots"
-  if (isSlots(message.content) && message.author.id != 331717125830082560) {
+  if (isSlots(message.content) && message.author.id != MAKOID) {
 
     if (UTIL.readObjProperty(message, 'slotTimer') == null) {
       UTIL.writeObjProperty(message, 'slotTimer', UTIL.getTimestamp());
