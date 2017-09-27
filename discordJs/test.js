@@ -9,6 +9,7 @@ const FS = require('fs');
 const SLTS = require('./slots');
 const EVENTS = require('./events');
 const UTIL = require('./util');
+const MEME = require('./memeGenerator');
 // Create an instance of a Discord CLIENT
 const CLIENT = new DISCORD.Client();
 
@@ -128,7 +129,15 @@ CLIENT.on('message', message => {
 
   }
   if (message.content === 'jail'){
-    UTIL.jail(message);
+    MEME.sendMeme(message, 'jail.png')
+  }
+
+  if (message.content === 'boobs'){
+    MEME.sendMeme(message, 'boobs.png')
+  }
+
+  if (message.content === 'hentai'){
+    MEME.sendMeme(message, 'hentai.png')
   }
 });
 // Log our bot in
