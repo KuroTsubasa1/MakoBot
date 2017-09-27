@@ -66,12 +66,14 @@ CLIENT.on('message', message => {
       obj = JSON.parse(readFile);
       if (ts > Number(obj.timestamp) + cooldown ) {
         UTIL.addCoins(message, UTIL.getRandomInt(50, 500));
+        UTIL.writeObjProperty(message, 'timestamp', UTIL.getTimestamp());
       } else {
         console.log(obj.timestamp);
         message.channel.send('Sorry!\nIt looks like you already got your daily reward.\nPlease try again in ' + UTIL.getHours(Number(obj.timestamp) + cooldown - ts));
       }
     } else {
       UTIL.addCoins(message, UTIL.getRandomInt(50, 500));
+      UTIL.writeObjProperty(message, 'timestamp', UTIL.getTimestamp());
     }
   }
 
