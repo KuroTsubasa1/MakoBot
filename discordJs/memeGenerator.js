@@ -1,6 +1,6 @@
 module.exports = {
 
   sendMeme: function(message, filename) {
-    message.channel.sendFile(filenaem)
+    message.channel.sendFile(`${filename}`)
   }
 }
