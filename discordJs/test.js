@@ -128,16 +128,20 @@ CLIENT.on('message', message => {
   if (message.content === 'mako well'){
 
   }
-  if (message.content === 'jail'){
+  if (message.content === '!jail'){
     MEME.sendMeme(message, 'jail.jpg')
   }
 
-  if (message.content === 'boobs'){
+  if (message.content === '!boobs'){
     MEME.sendMeme(message, 'boobs.jpg')
   }
 
-  if (message.content === 'hentai'){
+  if (message.content === '!hentai'){
     MEME.sendMeme(message, 'hentai.jpg')
+  }
+
+  if (message.content === '!sheep'){
+    MEME.sendMeme(message, 'sheep.jpg')
   }
 });
 // Log our bot in
