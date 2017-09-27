@@ -129,15 +129,15 @@ CLIENT.on('message', message => {
 
   }
   if (message.content === 'jail'){
-    MEME.sendMeme(message, 'jail.png')
+    MEME.sendMeme(message, 'jail.jpg')
   }
 
   if (message.content === 'boobs'){
-    MEME.sendMeme(message, 'boobs.png')
+    MEME.sendMeme(message, 'boobs.jpg')
   }
 
   if (message.content === 'hentai'){
-    MEME.sendMeme(message, 'hentai.png')
+    MEME.sendMeme(message, 'hentai.jpg')
   }
 });
 // Log our bot in
