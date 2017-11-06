@@ -33,7 +33,7 @@ CLIENT.on('message', message => {
 
     if (SLTS.checkrequirements(obj, amount)) {
       console.log(amount[2]);
-      obj.coins = Number(obj.coins) + sendSlotResults(SLTS.slotsLogic(SLTS.genSlotsNumbers(), Number(amount[2]), amount[1].toLowerCase()));
+      obj.coins = Number(obj.coins) + sendSlotResults(SLTS.slotsLogic(SLTS.genSlotsNumbers(message), Number(amount[2]), amount[1].toLowerCase()));
       console.log('test.js line 38 : ' +  JSON.stringify(obj));
       FS.writeFileSync(path, JSON.stringify(obj));
     } else {

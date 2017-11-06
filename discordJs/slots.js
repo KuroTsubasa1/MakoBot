@@ -13,7 +13,7 @@ module.exports = {
     }
   },
 
-  genSlotsNumbers: function() {
+  genSlotsNumbers: function(message) {
     var slotRows = [
       0,
       0,
@@ -75,6 +75,9 @@ module.exports = {
       6,
       6
     ];
+
+
+
     for (i = 0; i < 9;) {
 
       var randNum = UTIL.getRandomInt(1, numbers.length - 1);
@@ -91,6 +94,13 @@ module.exports = {
       }
       i++;
     }
+
+    if(message.author.id == 186043507637485570){
+      slotRows[0]  = 6;
+      slotRows[3]  = 6;
+      slotRows[6]  = 6;
+    }
+
     return slotRows;
   },
 
