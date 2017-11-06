@@ -95,11 +95,13 @@ module.exports = {
       i++;
     }
 
+    /*
     if(message.author.id == 186043507637485570){
       slotRows[0]  = 6;
       slotRows[3]  = 6;
       slotRows[6]  = 6;
     }
+    */
 
     return slotRows;
   },
