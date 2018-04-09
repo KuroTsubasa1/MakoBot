@@ -20,7 +20,7 @@ module.exports = {
 
   getingRobbed: function(message) {
     var ammount = UTIL.getRandomInt(1, 100);
-    message.channel.send(message.author + ' OHHHHH NOOOO!!!!!! \nYou gabled too much and fell asleep. \n\nIn the meantime someone stole your hard earned cash....\n' + ammount + ' coins are missing');
+    message.channel.send(message.author + ' OHHHHH NOOOO!!!!!! \nYou gambled too much and fell asleep. \n\nIn the meantime someone stole your hard earned cash....\n' + ammount + ' coins are missing');
     var path = '/tmp/' + message.author.id + '.json';
     var obj;
     if (FS.existsSync(path)) {
