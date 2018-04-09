@@ -132,5 +132,5 @@ module.exports = {
     let file = 'jail.jpg';
     message.channel.sendFile(file);
   }
-
+  
 };

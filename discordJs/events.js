@@ -18,28 +18,30 @@ module.exports = {
     }
   },
 
-getingRobbed: function(message) {
-  var ammount = UTIL.getRandomInt(1, 100);
-  message.channel.send(message.author + ' OHHHHH NOOOO!!!!!! \nYou gabled too much and fell asleep. \n\nIn the meantime someone stole your hard earned cash....\n' + ammount + ' coins are missing');
-  var path = '/tmp/' + message.author.id + '.json';
-  var obj;
-  if (FS.existsSync(path)) {
-    var readFileInput = FS.readFileSync(path);
-    obj = JSON.parse(readFileInput);
-    obj.coins = Number(obj.coins) - ammount;
-  }
+  getingRobbed: function(message) {
+    var ammount = UTIL.getRandomInt(1, 100);
+    message.channel.send(message.author + ' OHHHHH NOOOO!!!!!! \nYou gabled too much and fell asleep. \n\nIn the meantime someone stole your hard earned cash....\n' + ammount + ' coins are missing');
+    var path = '/tmp/' + message.author.id + '.json';
+    var obj;
+    if (FS.existsSync(path)) {
+      var readFileInput = FS.readFileSync(path);
+      obj = JSON.parse(readFileInput);
+      obj.coins = Number(obj.coins) - ammount;
+    }
     FS.writeFileSync(path, JSON.stringify(obj));
-}
+  },
 
-rainbow: function(message) {
-  var ammount = UTIL.getRandomInt(1, 5000);
-  message.channel.send(message.author + 'Super lucky !!! \nYou found a pod of golden coins in the backyard... \n You found ' + ammount + ' coins');
-  var path = '/tmp/' + message.author.id + '.json';
-  var obj;
-  if (FS.existsSync(path)) {
-    var readFileInput = FS.readFileSync(path);
-    obj = JSON.parse(readFileInput);
-    obj.coins = Number(obj.coins) + ammount;
-  }
+  rainbow: function(message) {
+    var ammount = UTIL.getRandomInt(1, 5000);
+    message.channel.send(message.author + 'Super lucky !!! \nYou found a pod of golden coins in the backyard... \n You found ' + ammount + ' coins');
+    var path = '/tmp/' + message.author.id + '.json';
+    var obj;
+    if (FS.existsSync(path)) {
+      var readFileInput = FS.readFileSync(path);
+      obj = JSON.parse(readFileInput);
+      obj.coins = Number(obj.coins) + ammount;
+    }
     FS.writeFileSync(path, JSON.stringify(obj));
-};
+  }
+
+}

@@ -11,9 +11,12 @@ const MAKOID = 331717125830082560;
 // Create an instance of a Discord CLIENT
 const CLIENT = new DISCORD.Client();
 
-// The TOKEN of your bot - https://discordapp.com/developers/applications/me
-const TOKEN = 'MzMxNzE3MTI1ODMwMDgyNTYw.DDznVA.CwWs-HqWVwuez-FeReIY9Y8aMYQ';
 
+
+// The TOKEN of your bot - https://discordapp.com/developers/applications/me
+var readFileInput = FS.readFileSync('./token.json');
+var token = JSON.parse(readFileInput);
+const TOKEN = token.token;
 // The ready event is vital, it means that your bot will only start reacting to information
 // from Discord _after_ ready is emitted
 CLIENT.on('ready', () => {
@@ -34,7 +37,7 @@ CLIENT.on('message', message => {
     if (SLTS.checkrequirements(obj, amount)) {
       console.log(amount[2]);
       obj.coins = Number(obj.coins) + sendSlotResults(SLTS.slotsLogic(SLTS.genSlotsNumbers(message), Number(amount[2]), amount[1].toLowerCase()));
-      console.log('test.js line 38 : ' +  JSON.stringify(obj));
+      console.log('test.js line 38 : ' + JSON.stringify(obj));
       FS.writeFileSync(path, JSON.stringify(obj));
     } else {
       console.log(obj.coins);
@@ -57,14 +60,14 @@ CLIENT.on('message', message => {
 
   function wage() {
     var ts = UTIL.getTimestamp();
-    var cooldown = 54000;   /* for test changed to 3600 has to be reverted to 54000*/
+    var cooldown = 54000; /* for test changed to 3600 has to be reverted to 54000*/
     var path = '/tmp/' + message.author.id + '.json';
     var readFile;
     var obj;
     if (FS.existsSync(path)) {
       readFile = FS.readFileSync(path);
       obj = JSON.parse(readFile);
-      if (ts > Number(obj.timestamp) + cooldown ) {
+      if (ts > Number(obj.timestamp) + cooldown) {
         UTIL.addCoins(message, UTIL.getRandomInt(50, 500));
         UTIL.writeObjProperty(message, 'timestamp', UTIL.getTimestamp());
       } else {
@@ -125,22 +128,22 @@ CLIENT.on('message', message => {
   if (message.content === 'mako coins') {
     UTIL.getCredits(message);
   }
-  if (message.content === 'mako well'){
+  if (message.content === 'mako well') {
 
   }
-  if (message.content === '!jail'){
+  if (message.content === '!jail') {
     MEME.sendMeme(message, 'jail.jpg')
   }
 
-  if (message.content === '!boobs'){
+  if (message.content === '!boobs') {
     MEME.sendMeme(message, 'boobs.jpg')
   }
 
-  if (message.content === '!hentai'){
+  if (message.content === '!hentai') {
     MEME.sendMeme(message, 'hentai.jpg')
   }
 
-  if (message.content === '!sheep'){
+  if (message.content === '!sheep') {
     MEME.sendMeme(message, 'sheep.jpg')
   }
 });
