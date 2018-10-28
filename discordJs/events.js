@@ -4,7 +4,7 @@ const FS = require('fs');
 module.exports = {
 
   getRandomEvent: function(message) {
-    switch (UTIL.getRandomInt(0, 10)) {
+    switch (UTIL.getRandomInt(0, 1000)) {
       case 1:
         module.exports.getingRobbed(message);
         break;
@@ -42,6 +42,23 @@ module.exports = {
       obj.coins = Number(obj.coins) + ammount;
     }
     FS.writeFileSync(path, JSON.stringify(obj));
+  },
+
+unluckyDay: function(message) {
+ if (FS.existsSync(path)) {
+  var readFileInput = FS.readFileSync(path);
+  obj = JSON.parse(readFileInput);
+  let ammunt = obj.coins;
+}
+  message.channel.send(message.author + 'Toooooo bad!!!!!!!!!\nAfter you left the casino you got run over by a car.... \n To save your life you spend all your coins');
+  var path = '/tmp/' + message.author.id + '.json';
+  var obj;
+  if (FS.existsSync(path)) {
+    var readFileInput = FS.readFileSync(path);
+    obj = JSON.parse(readFileInput);
+    obj.coins = Number(obj.coins) - ammount;
   }
+  FS.writeFileSync(path, JSON.stringify(obj));
+}
 
 }
