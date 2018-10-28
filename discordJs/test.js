@@ -7,6 +7,8 @@ const EVENTS = require('./events');
 const UTIL = require('./util');
 const MEME = require('./memeGenerator');
 
+const modifier = "::"
+
 const MAKOID = 331717125830082560;
 // Create an instance of a Discord CLIENT
 const CLIENT = new DISCORD.Client();
@@ -17,6 +19,7 @@ const CLIENT = new DISCORD.Client();
 var readFileInput = FS.readFileSync('./token.json');
 var token = JSON.parse(readFileInput);
 const TOKEN = token.token;
+
 // The ready event is vital, it means that your bot will only start reacting to information
 // from Discord _after_ ready is emitted
 CLIENT.on('ready', () => {
@@ -82,7 +85,7 @@ CLIENT.on('message', message => {
 
   function isSlots(strText) {
     strText = strText.toLowerCase();
-    if (strText.includes("mako slots") || strText.includes("mako multislots")) {
+    if (strText.includes(modifier + "slots") || strText.includes(modifier + "multislots")) {
       return true;
     }
   }
@@ -108,42 +111,44 @@ CLIENT.on('message', message => {
     }
   }
 
-  if (message.content === 'mako wage') {
+ 
+
+  if (message.content === modifier + 'wage') {
     // Send to the same channel
     EVENTS.getRandomEvent(message);
     wage();
   }
 
-  if (message.content === 'mako id') {
+  if (message.content === modifier + 'id') {
     // Send to the same channel
     message.channel.send(message.author.id);
   }
 
-  if (message.content === 'patch') {
+  if (message.content === modifier +'patch') {
     // Send to the same channel
     EXECFILE("/root/makobot/MakoBot/discordJs/syncGitRepo.sh");
     message.channel.send("patched git");
     message.channel.send("restart now");
   }
-  if (message.content === 'mako coins') {
+  if (message.content === modifier +'coins') {
     UTIL.getCredits(message);
   }
-  if (message.content === 'mako well') {
+  if (message.content === modifier +'well') {
 
   }
-  if (message.content === '!jail') {
+  if (message.content === modifier + 'jail') {
     MEME.sendMeme(message, 'jail.jpg')
   }
 
-  if (message.content === '!boobs') {
+  if (message.content === modifier + 'boobs') {
     MEME.sendMeme(message, 'boobs.jpg')
   }
 
-  if (message.content === '!hentai') {
+  if (message.content === modifier + 'hentai') {
     MEME.sendMeme(message, 'hentai.jpg')
   }
 
-  if (message.content === '!sheep') {
+  if (message.content === modifier + 'sheep') {
     MEME.sendMeme(message, 'sheep.jpg')
   }
 });
