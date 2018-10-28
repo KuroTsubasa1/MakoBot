@@ -97,8 +97,8 @@ CLIENT.on('message', message => {
     } else {
       if (Number(UTIL.readObjProperty(message, 'slotTimer')) + 4 < UTIL.getTimestamp()) {
         UTIL.writeObjProperty(message, 'slotTimer', UTIL.getTimestamp());
-        var str = message.content.toLowerCase().split(" ", 2);
-        if (!isNaN(Number(str[2]))) {
+        var str = message.content.toLowerCase().split(" ", 3);
+        if (!isNaN(Number(str[3]))) {
           EVENTS.getRandomEvent(message);
           slots(str);
         } else {
